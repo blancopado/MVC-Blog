@@ -3,8 +3,10 @@ import PostController from "./PostController";
 import ReadController from "./ReadController";
 
 class BlogController {
+
   private readonly postController: PostController;
   private readonly readController: ReadController;
+
   constructor(dao: BlogDAO) {
     this.postController = new PostController(dao);
     this.readController = new ReadController(dao);
@@ -17,6 +19,7 @@ class BlogController {
   async read(author: string) {
     return this.readController.read(author);
   }
+  
 }
 
 export default BlogController;

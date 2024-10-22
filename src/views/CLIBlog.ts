@@ -4,13 +4,16 @@ import Post from "../models/Post";
 import { View } from "./View";
 
 export class CLIBlogView implements View {
+
   private readonly options: Array<(onSuccess: () => void, onError: (err: Error) => void) => void>;
+
   constructor(private readonly blogController: BlogController) {
     this.options = [
       this.post.bind(this),
       this.read.bind(this),
     ];
   }
+
   render() {
     console.log("Welcome to the Blog!");
     console.log(`Choose an option:`);
@@ -20,6 +23,7 @@ export class CLIBlogView implements View {
     const option = Number(readline.question("Option:"));
     this.options[option - 1](this.render.bind(this), this.onError.bind(this));
   }
+
   private onError(_err: Error) {
     console.log("Something failed, try again...");
   }
@@ -49,4 +53,5 @@ export class CLIBlogView implements View {
       .catch(onError)
       .finally(onSuccess);
   }
+  
 }

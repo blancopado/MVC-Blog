@@ -1,8 +1,10 @@
 import * as uuid from 'uuid';
 
 class Post {
+
   public readonly id: string;
   public readonly date: Date;
+
   constructor(
     public readonly author: string,
     public readonly content: string,
@@ -25,6 +27,7 @@ class Post {
       content: this.content,
     };
   }
+  
 }
 
 export default Post;

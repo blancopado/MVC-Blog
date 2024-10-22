@@ -7,9 +7,11 @@ interface Persistence {
 
 class BlogDAO implements Persistence {
   private static storagePath = `${__dirname}/data/blog`;
+
   constructor() {
     this.ensureDirectoryExistence(BlogDAO.storagePath);
   }
+
   async persist(blog: Blog): Promise<void> {
     const data = JSON.stringify(blog.toPrimitives());
     const filename = `${BlogDAO.storagePath}/blog.json`;
@@ -32,6 +34,7 @@ class BlogDAO implements Persistence {
     }
     fs.mkdirSync(dirname, { recursive: true });
   }
+  
 }
 
 export default BlogDAO;

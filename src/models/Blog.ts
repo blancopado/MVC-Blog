@@ -1,8 +1,8 @@
 import Post from "./Post";
 
 class Blog {
-  constructor(private readonly posts: Post[] = []) {
-  }
+
+  constructor(private readonly posts: Post[] = []) { }
 
   static fromPrimitives(primitives: ReturnType<typeof Post.prototype.toPrimitives>[]) {
     return new Blog(primitives.map(Post.fromPrimitives));
@@ -26,6 +26,7 @@ class Blog {
     const primitives = this.posts.map(post => post.toPrimitives());
     return primitives;
   }
+  
 }
 
 export default Blog;
