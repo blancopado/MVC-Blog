@@ -11,16 +11,19 @@ export class CLIBlogView implements View {
     this.options = [
       this.post.bind(this),
       this.read.bind(this),
+      this.delete.bind(this),
     ];
   }
 
   render() {
+    console.log("++++++++++++++++++++");
     console.log("Welcome to the Blog!");
+    console.log("++++++++++++++++++++", "\n");
     console.log(`Choose an option:`);
     console.log(`${this.options.map((option, index) =>
       ` ${(index + 1)}) ${option.name.replace("bound ", "")}`).join("\n")}`);
 
-    const option = Number(readline.question("Option:"));
+    const option = Number(readline.question("Option: "));
     this.options[option - 1](this.render.bind(this), this.onError.bind(this));
   }
 
@@ -29,27 +32,40 @@ export class CLIBlogView implements View {
   }
 
   private post(onSuccess: () => void, onError: (err: Error) => void) {
-    const author = readline.question("Name?");
-    const content = readline.question("What are yout thinking?");
+    const author = readline.question("Name? ");
+    const content = readline.question("What are yout thinking? ");
     this.blogController.post(author, content)
       .then(() => {
-        console.log("Your post was published!");
+        console.log("Your post was published!", "\n");
       })
       .catch(onError)
       .finally(onSuccess);
   }
 
   private read(onSuccess: () => void, onError: (err: Error) => void) {
-    const author = readline.question("From whom?");
+    const author = readline.question("From whom? ");
     this.blogController.read(author)
       .then((posts: Post[]) => posts
         .map((post: Post) =>
           console.log(`
-          ${post.author} said:
-          ${post.date.toISOString()}
-          ${post.content}
-        `)
+            id: ${post.id}
+            author: ${post.author}
+            date: ${post.date.toISOString()}
+            content: ${post.content}
+          `)
         ))
+      .catch(onError)
+      .finally(onSuccess);
+  }
+
+  private delete(onSuccess: () => void, onError: (err: Error) => void) {
+    const id = readline.question("Select the post id to delete: ");
+    this.blogController.delete(id)
+      .then(() => {
+        console.log("--------------------------------");
+        console.log("Post deleted!");
+        console.log("--------------------------------");
+      })
       .catch(onError)
       .finally(onSuccess);
   }

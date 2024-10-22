@@ -3,6 +3,7 @@ import Blog from "../Blog";
 
 interface Persistence {
   persist(blog: Blog): Promise<void>;
+  delete(postId: string): void;
 }
 
 class BlogDAO implements Persistence {
@@ -27,6 +28,12 @@ class BlogDAO implements Persistence {
     } catch (error) {
       return new Blog();
     }
+  }
+
+  async delete(postId: string): Promise<void> {
+      const blog = await this.get();
+      const filteredPosts = blog.getPosts().filter((post: any) => post.id !== postId);
+      await this.persist(new Blog(filteredPosts));
   }
 
   private ensureDirectoryExistence(dirname: string) {
