@@ -16,9 +16,9 @@ export class CLIBlogView implements View {
   }
 
   render() {
-    console.log("++++++++++++++++++++");
+    console.log("+++++++++++++++++++++");
     console.log("Welcome to the Blog!");
-    console.log("++++++++++++++++++++", "\n");
+    console.log("+++++++++++++++++++++", "\n");
     console.log(`Choose an option:`);
     console.log(`${this.options.map((option, index) =>
       ` ${(index + 1)}) ${option.name.replace("bound ", "")}`).join("\n")}`);
