@@ -6,6 +6,7 @@ interface Persistence {
 }
 
 class BlogDAO implements Persistence {
+  
   private static storagePath = `${__dirname}/data/blog`;
 
   constructor() {
